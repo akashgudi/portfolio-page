@@ -1,96 +1,93 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-gaming-bg: #0a0a0a;
+  --color-gaming-card: #151515;
+  --color-gaming-accent: #00f3ff;
+  --color-gaming-secondary: #ff00ff;
+  --color-gaming-border: #222222;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  body {
+    @apply bg-gaming-bg text-white font-sans selection:bg-gaming-accent selection:text-gaming-bg;
+    background-image: 
+      linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
-  a:hover {
-    color: #747bff;
+
+  h1, h2, h3 {
+    @apply font-display uppercase tracking-tighter;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@layer components {
+  .gaming-card {
+    @apply bg-gaming-card border border-gaming-border p-6 relative transition-all duration-300;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
   }
+
+  .gaming-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-1 h-full bg-gaming-accent opacity-0 transition-opacity duration-300;
+  }
+
+  .gaming-card:hover {
+    @apply border-gaming-accent/50 shadow-[0_0_20px_rgba(0,243,255,0.1)];
+  }
+
+  .gaming-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .gaming-btn {
+    @apply px-6 py-2 border border-gaming-accent text-gaming-accent uppercase font-display text-sm tracking-widest hover:bg-gaming-accent hover:text-gaming-bg transition-all duration-300 relative overflow-hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .neon-text {
+    @apply text-gaming-accent;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+  }
+
+  .headshot-frame {
+    @apply w-48 h-48 md:w-64 md:h-64 border-2 border-gaming-accent p-1 relative overflow-hidden bg-white;
+    clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+  }
+
+  .headshot-frame img {
+    @apply w-full h-full object-cover;
+    clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+  }
+
+  .section-title {
+    @apply text-3xl mb-8 flex items-center gap-4;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply h-[1px] flex-1 bg-gradient-to-r from-gaming-accent to-transparent;
+  }
+}
+
+/* Custom animations */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.05), transparent);
+  pointer-events: none;
+  z-index: 50;
+  animation: scanline 8s linear infinite;
 }
