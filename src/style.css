@@ -1,93 +1,671 @@
-@import "tailwindcss";
+/* ---------------------------------------------------------------- */
+/*  Tokens                                                           */
+/* ---------------------------------------------------------------- */
+:root {
+  --bg: #faf8f4;
+  --bg-alt: #f1ede4;
+  --ink: #17140f;
+  --ink-soft: rgba(23, 20, 15, 0.66);
+  --ink-faint: rgba(23, 20, 15, 0.42);
+  --hairline: rgba(23, 20, 15, 0.14);
+  --hairline-strong: rgba(23, 20, 15, 0.28);
+  --accent: #8a3324;
+  --paper: #ffffff;
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  
-  --color-gaming-bg: #0a0a0a;
-  --color-gaming-card: #151515;
-  --color-gaming-accent: #00f3ff;
-  --color-gaming-secondary: #ff00ff;
-  --color-gaming-border: #222222;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --topbar-h: 68px;
+  --logowalk-h: 76px;
+  --container: 920px;
 }
 
-@layer base {
-  body {
-    @apply bg-gaming-bg text-white font-sans selection:bg-gaming-accent selection:text-gaming-bg;
-    background-image: 
-      linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-
-  h1, h2, h3 {
-    @apply font-display uppercase tracking-tighter;
-  }
+* {
+  box-sizing: border-box;
 }
 
-@layer components {
-  .gaming-card {
-    @apply bg-gaming-card border border-gaming-border p-6 relative transition-all duration-300;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-  }
-
-  .gaming-card::before {
-    content: '';
-    @apply absolute top-0 left-0 w-1 h-full bg-gaming-accent opacity-0 transition-opacity duration-300;
-  }
-
-  .gaming-card:hover {
-    @apply border-gaming-accent/50 shadow-[0_0_20px_rgba(0,243,255,0.1)];
-  }
-
-  .gaming-card:hover::before {
-    @apply opacity-100;
-  }
-
-  .gaming-btn {
-    @apply px-6 py-2 border border-gaming-accent text-gaming-accent uppercase font-display text-sm tracking-widest hover:bg-gaming-accent hover:text-gaming-bg transition-all duration-300 relative overflow-hidden;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-  }
-
-  .neon-text {
-    @apply text-gaming-accent;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-  }
-
-  .headshot-frame {
-    @apply w-48 h-48 md:w-64 md:h-64 border-2 border-gaming-accent p-1 relative overflow-hidden bg-white;
-    clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
-  }
-
-  .headshot-frame img {
-    @apply w-full h-full object-cover;
-    clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
-  }
-
-  .section-title {
-    @apply text-3xl mb-8 flex items-center gap-4;
-  }
-
-  .section-title::after {
-    content: '';
-    @apply h-[1px] flex-1 bg-gradient-to-r from-gaming-accent to-transparent;
-  }
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
-/* Custom animations */
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.scanline {
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.005em;
+}
+
+a {
+  color: inherit;
+}
+
+section {
+  scroll-margin-top: calc(var(--topbar-h) + var(--logowalk-h) + 16px);
+}
+
+.role-card,
+.role-card[id] {
+  scroll-margin-top: calc(var(--topbar-h) + var(--logowalk-h) + 24px);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Top bar                                                          */
+/* ---------------------------------------------------------------- */
+.topbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.05), transparent);
+  right: 0;
+  height: var(--topbar-h);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 56px);
+  background: rgba(250, 248, 244, 0.86);
+  backdrop-filter: blur(10px) saturate(120%);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.topbar-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.tab-switch {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-alt);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.tab-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.tab-btn:hover {
+  color: var(--ink);
+}
+
+.tab-btn.is-active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.topbar-links {
+  display: flex;
+  gap: 22px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.topbar-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  padding-bottom: 2px;
+}
+
+.topbar-links a:hover {
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Logo walk (sticky mini-nav through the timeline)                 */
+/* ---------------------------------------------------------------- */
+.logo-walk {
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  right: 0;
+  height: var(--logowalk-h);
+  z-index: 55;
+  background: rgba(250, 248, 244, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 clamp(20px, 5vw, 56px);
+  transform: translateY(-12px);
+  opacity: 0;
   pointer-events: none;
-  z-index: 50;
-  animation: scanline 8s linear infinite;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.logo-walk.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.logo-walk-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  white-space: nowrap;
+}
+
+.logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  padding: 4px 2px;
+  opacity: 0.42;
+  transition: opacity 0.3s ease;
+}
+
+.logo-badge:hover {
+  opacity: 0.75;
+}
+
+.logo-badge.is-active {
+  opacity: 1;
+}
+
+.logo-badge-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: var(--paper);
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-badge.is-active .logo-badge-circle {
+  background: var(--ink);
+  color: var(--bg);
+  transform: scale(1.08);
+}
+
+.logo-badge-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Hero                                                              */
+/* ---------------------------------------------------------------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--topbar-h) + 40px) clamp(20px, 6vw, 80px) 60px;
+  position: relative;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(200px, 0.9fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 22px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(48px, 9vw, 112px);
+  line-height: 0.98;
+  margin: 0 0 28px;
+  letter-spacing: -0.01em;
+}
+
+.hero-title em {
+  font-weight: 400;
+}
+
+.hero-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 2.4vw, 26px);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 760px;
+  color: var(--ink-soft);
+  margin: 0 0 48px;
+}
+
+.hero-meta-text {
+  margin-top: 32px;
+}
+
+.hero-portrait {
+  display: flex;
+  justify-content: center;
+}
+
+.headshot-frame {
+  width: clamp(180px, 20vw, 320px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.headshot-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-meta-text p {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.hero-meta-text p:last-child {
+  margin-bottom: 0;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 40px;
+  left: clamp(20px, 6vw, 80px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.scroll-cue span {
+  width: 1px;
+  height: 34px;
+  background: var(--hairline-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-cue span::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  animation: cue-fall 1.8s ease-in-out infinite;
+}
+
+@keyframes cue-fall {
+  0% { top: -100%; }
+  60% { top: 100%; }
+  100% { top: 100%; }
+}
+
+.scroll-cue p {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/*  Shared layout                                                     */
+/* ---------------------------------------------------------------- */
+main {
+  padding: 0 clamp(20px, 6vw, 80px) 40px;
+}
+
+.intro-line {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 60px 0 90px;
+  border-top: 1px solid var(--hairline);
+}
+
+.intro-line p {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 42px);
+  max-width: var(--container);
+  margin: 0 auto 48px;
+  padding-top: 8px;
+}
+
+/* ---------------------------------------------------------------- */
+/*  Timeline / role cards                                             */
+/* ---------------------------------------------------------------- */
+.timeline {
+  padding-bottom: 100px;
+}
+
+.timeline--compact {
+  padding-bottom: 80px;
+}
+
+.timeline-list {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.role-card {
+  display: flex;
+  gap: 28px;
+  padding: 44px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.role-card:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.role-card.is-hidden {
+  display: none;
+}
+
+.role-monogram {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+.role-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.role-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.role-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(20px, 2.4vw, 25px);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.role-company {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.role-dates {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  margin: 0;
+}
+
+.role-lens {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--accent);
+  margin: 10px 0 18px;
+}
+
+.role-lens[data-lens].is-lens-hidden {
+  display: none;
+}
+
+.role-bullets {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-bullets li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.role-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.role-bullets li[data-lens].is-lens-hidden {
+  display: none;
+}
+
+.role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Education grid                                                   */
+/* ---------------------------------------------------------------- */
+.edu-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.edu-grid .role-card:first-child {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Skills                                                            */
+/* ---------------------------------------------------------------- */
+.skills-section {
+  padding-bottom: 120px;
+}
+
+.skills-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+}
+
+.skills-card {
+  background: var(--bg);
+  padding: 32px;
+  transition: opacity 0.3s ease;
+}
+
+.skills-card.is-hidden {
+  display: none;
+}
+
+.skills-card h3 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 19px;
+  margin: 0 0 12px;
+}
+
+.skills-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------- */
+/*  Footer                                                            */
+/* ---------------------------------------------------------------- */
+.site-footer {
+  padding: 40px clamp(20px, 6vw, 80px) 60px;
+  text-align: center;
+  border-top: 1px solid var(--hairline);
+}
+
+.site-footer p {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/*  Reveal (GSAP sets initial state via JS; this is the no-JS fallback) */
+/* ---------------------------------------------------------------- */
+.reveal-up {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------- */
+/*  Responsive                                                       */
+/* ---------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-meta-text {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    padding: 0 18px;
+    gap: 10px;
+  }
+
+  .topbar-links {
+    display: none;
+  }
+
+  .tab-switch {
+    order: 2;
+  }
+
+  .role-card {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .role-monogram {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .role-head {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .headshot-frame {
+    width: clamp(140px, 45vw, 200px);
+  }
 }

@@ -4,278 +4,463 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Akash Harish Gudi | Portfolio</title>
+    <meta
+      name="description"
+      content="Akash Harish Gudi — MBA Candidate at USC Marshall, working across consulting/strategy and games. Software engineering, product analytics, and go-to-market experience."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="overflow-x-hidden">
-    <div class="scanline"></div>
+  <body>
+    <!-- Top bar -->
+    <div class="topbar">
+      <a href="#top" class="topbar-mark">A.H.G.</a>
 
-    <header
-      class="min-h-screen flex flex-col justify-center px-6 md:px-20 relative"
-    >
-      <div class="absolute top-10 right-10 flex gap-6">
-        <a
-          href="https://linkedin.com/in/akashgudi/"
-          target="_blank"
-          class="gaming-btn"
-          >LinkedIn</a
-        >
-        <a href="mailto:gudi@marshall.usc.edu" class="gaming-btn">Contact</a>
+      <nav class="tab-switch" role="tablist" aria-label="Filter experience">
+        <button class="tab-btn is-active" data-tab="all" role="tab" aria-selected="true">All</button>
+        <button class="tab-btn" data-tab="consulting" role="tab" aria-selected="false">Consulting</button>
+        <button class="tab-btn" data-tab="gaming" role="tab" aria-selected="false">Gaming</button>
+      </nav>
+
+      <div class="topbar-links">
+        <a href="https://linkedin.com/in/akashgudi/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:gudi@marshall.usc.edu">Contact</a>
       </div>
+    </div>
 
-      <div
-        class="flex flex-col lg:flex-row items-center lg:items-end gap-12 reveal"
-      >
-        <div class="headshot-frame shrink-0">
-          <img
-            src="/images/headshot.jpg"
-            alt="Akash Harish Gudi Headshot"
-            referrerpolicy="no-referrer"
-          />
-          <div
-            class="absolute inset-0 border border-gaming-accent/20 pointer-events-none"
-          ></div>
-        </div>
+    <!-- Sticky logo-walk (appears once inside experience) -->
+    <div class="logo-walk" id="logoWalk" aria-hidden="true">
+      <div class="logo-walk-track" id="logoWalkTrack"></div>
+    </div>
 
-        <div>
-          <p
-            class="text-gaming-accent font-display tracking-[0.5em] mb-4 uppercase text-sm"
-          >
-            System Initialize // Portfolio v1.0
-          </p>
-          <h1 class="text-6xl md:text-9xl font-bold mb-4 leading-none">
-            Akash <br />
-            <span class="neon-text">Harish</span> Gudi
+    <div id="top"></div>
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-inner reveal-up">
+        <div class="hero-content">
+          <p class="eyebrow">Portfolio — 2026</p>
+          <h1 class="hero-title">
+            Akash Harish <em>Gudi</em>
           </h1>
-          <p class="text-xl md:text-2xl text-white/60 max-w-2xl font-light">
-            MBA Candidate @ USC Marshall | Marketing & Biz Dev @ Glass Arcade
-            Studios | Ex-Uber Software Engineer
+          <p class="hero-sub">
+            MBA Candidate at <em>USC Marshall</em> — building at the
+            intersection of <em>strategy</em> and <em>games</em>. Formerly
+            software engineering at Uber, data consulting at Fractal, and
+            machine learning at Mercedes-Benz R&amp;D.
           </p>
+
+          <div class="hero-meta-text">
+            <p><em>Currently</em> — Marketing &amp; Business Development, Glass Arcade Studios</p>
+            <p><em>Reading for</em> — MBA (Marketing), USC Marshall School of Business, 2027</p>
+            <p><em>Based in</em> — Los Angeles, CA</p>
+          </div>
+        </div>
+
+        <div class="hero-portrait">
+          <div class="headshot-frame">
+            <img src="/images/headshot.png" alt="Akash Harish Gudi headshot" referrerpolicy="no-referrer" />
+          </div>
         </div>
       </div>
 
-      <div class="absolute bottom-10 left-6 md:left-20 animate-bounce">
-        <p
-          class="font-display text-xs uppercase tracking-widest text-white/40 rotate-90 origin-left"
-        >
-          Scroll to explore
-        </p>
+      <div class="scroll-cue reveal-up">
+        <span></span>
+        <p>Scroll to explore the journey</p>
       </div>
     </header>
 
-    <main class="px-6 md:px-20 py-20 space-y-32">
+    <main>
+      <!-- Intro line above the timeline -->
+      <section class="intro-line">
+        <p class="reveal-up">
+          Same experience, two lenses: <em>consulting</em> or <em>gaming</em>.
+          Pick one above.
+        </p>
+      </section>
+
       <!-- Experience Section -->
-      <section id="experience">
-        <h2 class="section-title">Experience</h2>
-        <div class="grid grid-cols-1 gap-8">
-          <!-- Glass Arcade -->
-          <div class="gaming-card reveal">
-            <div
-              class="flex flex-col md:flex-row justify-between items-start mb-4"
-            >
-              <div>
-                <h3 class="text-2xl text-gaming-accent">
-                  Marketing & Business Development Intern
-                </h3>
-                <p class="text-white/80">
-                  Glass Arcade Studios — Los Angeles, CA
-                </p>
+      <section id="experience" class="timeline">
+        <h2 class="section-title reveal-up">Experience</h2>
+
+        <div class="timeline-list">
+          <!-- Disneyland Hong Kong -->
+          <article class="role-card reveal-up" data-tags="consulting" id="role-disneyland">
+            <div class="role-monogram" aria-hidden="true">DL</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">MBA Student <em>Consultant</em></h3>
+                  <p class="role-company">Disneyland Hong Kong — Hong Kong</p>
+                </div>
+                <p class="role-dates">Mar 2026 — May 2026</p>
               </div>
-              <p class="font-display text-sm text-white/40 mt-2 md:mt-0">
-                JAN 2026 — PRESENT
+
+              <p class="role-lens" data-lens="consulting">
+                Building a five-year growth roadmap for merchandising and IP monetization.
               </p>
+
+              <ul class="role-bullets">
+                <li>
+                  Recommended a <em>$150M five-year incremental revenue plan</em>
+                  (37% modeled IRR) to the Director of Merchandising and Consumer
+                  Insights, scoping initiatives across merchandise, partnerships,
+                  and park experiences, and securing client intent to implement.
+                </li>
+                <li>
+                  Built a five-year <em>IP development and monetization
+                  playbook</em> from competitor benchmarks, Asia-Pacific IP trend
+                  research, and primary consumer survey data.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Revenue Strategy</span>
+                <span class="chip">IP Monetization</span>
+                <span class="chip">Consumer Insights</span>
+              </div>
             </div>
-            <ul class="space-y-2 text-white/60 list-disc list-inside">
-              <li>
-                Handling social media campaign and Discord community for the
-                launch of "Dream Runner", an Indie precision platformer.
-              </li>
-              <li>
-                Creating pitch decks, handling publisher relationships, and
-                planning GTM launch strategy to optimize Wishlist conversion.
-              </li>
-            </ul>
-          </div>
+          </article>
+
+          <!-- Glass Arcade -->
+          <article class="role-card reveal-up" data-tags="gaming" id="role-glass-arcade">
+            <div class="role-monogram" aria-hidden="true">GA</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">Marketing <em>Intern</em></h3>
+                  <p class="role-company">Glass Arcade Studios — Los Angeles, CA</p>
+                </div>
+                <p class="role-dates">Jan 2026 — Present</p>
+              </div>
+
+              <p class="role-lens" data-lens="gaming">
+                Rebuilding channel attribution and content strategy for an indie title ahead of launch.
+              </p>
+
+              <ul class="role-bullets">
+                <li>
+                  Grew <em>Steam wishlists 477%</em> (70 to 404) by rebuilding
+                  channel traffic attribution across paid social, festivals, and
+                  live events, then reallocating 42% of budget into the
+                  highest-converting channels.
+                </li>
+                <li>
+                  Improved <em>engagement 37%</em> across a four-platform organic
+                  content program (Instagram, TikTok, YouTube, BlueSky) while
+                  cutting paid social spend 42%, sustaining reach for a flagship
+                  indie title.
+                </li>
+                <li>
+                  Own <em>Discord community management</em>, PAX West event
+                  marketing, and creator outreach — from brand kit to trailer
+                  editing.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Channel Attribution</span>
+                <span class="chip">Content Strategy</span>
+                <span class="chip">Community Growth</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Sony Interactive Entertainment -->
+          <article class="role-card reveal-up" data-tags="consulting gaming" id="role-sony">
+            <div class="role-monogram" aria-hidden="true">SIE</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">MBA Student <em>Consultant</em></h3>
+                  <p class="role-company">Sony Interactive Entertainment — Los Angeles, CA</p>
+                </div>
+                <p class="role-dates">Jan 2026 — Mar 2026</p>
+              </div>
+
+              <p class="role-lens" data-lens="consulting">
+                Modeling monetization strategy for a live-service subscription business.
+              </p>
+              <p class="role-lens" data-lens="gaming">
+                Designing a cosmetics economy across 50M PlayStation Plus subscribers.
+              </p>
+
+              <ul class="role-bullets">
+                <li data-lens="consulting">
+                  Projected a <em>16% LTV lift</em> and <em>7% incremental
+                  revenue</em> at 43% EBIT margin across 50M PlayStation Plus
+                  subscribers by designing an AI-personalized cosmetics economy
+                  spanning UGC and first-party titles.
+                </li>
+                <li data-lens="gaming">
+                  Designed an AI-personalized <em>cosmetics economy</em> spanning
+                  UGC and first-party titles for 50M PlayStation Plus
+                  subscribers, projecting a 16% LTV lift and 7% incremental
+                  revenue.
+                </li>
+                <li data-lens="consulting">
+                  Sized growth opportunity across <em>3 subscriber segments</em>
+                  by modeling LTV against third-party UGC spend benchmarks,
+                  presenting findings to the VP of Innovation Strategy.
+                </li>
+                <li data-lens="gaming">
+                  Modeled player LTV against <em>UGC spend benchmarks</em> across
+                  3 subscriber segments to size a live-service monetization
+                  opportunity, presenting to the VP of Innovation Strategy.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Live-Service Monetization</span>
+                <span class="chip">Subscriber Analytics</span>
+                <span class="chip">UGC Strategy</span>
+              </div>
+            </div>
+          </article>
 
           <!-- USC Games -->
-          <div class="gaming-card reveal">
-            <div
-              class="flex flex-col md:flex-row justify-between items-start mb-4"
-            >
-              <div>
-                <h3 class="text-2xl text-gaming-accent">
-                  Marketing, Advanced Games Project
-                </h3>
-                <p class="text-white/80">USC Games — Los Angeles, CA</p>
+          <article class="role-card reveal-up" data-tags="gaming" id="role-usc-games">
+            <div class="role-monogram" aria-hidden="true">UG</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">Marketing, <em>Advanced Games Project</em></h3>
+                  <p class="role-company">USC Games — Los Angeles, CA</p>
+                </div>
+                <p class="role-dates">Sep 2025 — Present</p>
               </div>
-              <p class="font-display text-sm text-white/40 mt-2 md:mt-0">
-                SEP 2025 — PRESENT
+
+              <p class="role-lens" data-lens="gaming">
+                Turning player data into marketing strategy for a student-built PvP card battler.
               </p>
+
+              <ul class="role-bullets">
+                <li>
+                  Apply <em>audience segmentation</em> and TAM analysis to
+                  position a mobile-first, real-time PvP card battler ahead of
+                  launch.
+                </li>
+                <li>
+                  Partner with game designers to translate <em>game health
+                  metrics</em> into actionable marketing strategy.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Audience Segmentation</span>
+                <span class="chip">TAM Analysis</span>
+                <span class="chip">Cross-functional Collab</span>
+              </div>
             </div>
-            <ul class="space-y-2 text-white/60 list-disc list-inside">
-              <li>
-                Leveraging audience segmentation and TAM analysis for a
-                mobile-first real-time PvP Card Battler.
-              </li>
-              <li>
-                Collaborating with Game Designers to translate game health
-                metrics into actionable marketing strategies.
-              </li>
-            </ul>
-          </div>
+          </article>
 
           <!-- Uber -->
-          <div class="gaming-card reveal">
-            <div
-              class="flex flex-col md:flex-row justify-between items-start mb-4"
-            >
-              <div>
-                <h3 class="text-2xl text-gaming-accent">
-                  Software Engineer II
-                </h3>
-                <p class="text-white/80">
-                  Uber Technologies — Hyderabad, India
-                </p>
+          <article class="role-card reveal-up" data-tags="consulting gaming" id="role-uber">
+            <div class="role-monogram" aria-hidden="true">U</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">Software Engineer <em>II</em></h3>
+                  <p class="role-company">Uber Technologies — Hyderabad, India</p>
+                </div>
+                <p class="role-dates">Sep 2024 — Jun 2025</p>
               </div>
-              <p class="font-display text-sm text-white/40 mt-2 md:mt-0">
-                SEP 2024 — JUN 2025
+
+              <p class="role-lens" data-lens="consulting">
+                Turning telemetry into product decisions that drove revenue and reliability at scale.
               </p>
+              <p class="role-lens" data-lens="gaming">
+                Shipping features and owning incidents for a mass-market consumer app serving millions daily.
+              </p>
+
+              <ul class="role-bullets">
+                <li data-lens="consulting">
+                  Drove <em>$1.4M in annualized revenue</em> by shipping four
+                  rider and driver features, led by Destination Shortcuts and
+                  Multi-stop Rides, after telemetry exposed cross-platform gaps
+                  blocking high-intent bookings.
+                </li>
+                <li data-lens="gaming">
+                  Shipped four features — including <em>Destination
+                  Shortcuts</em> and Multi-stop Rides — driving $1.4M in
+                  annualized revenue after telemetry surfaced friction blocking
+                  high-intent mobile bookings.
+                </li>
+                <li data-lens="consulting">
+                  Averted <em>$300K in revenue loss</em> across 4 major global
+                  outages as Incident Commander, directing cross-functional
+                  response and authoring a post-mortem process adopted org-wide.
+                </li>
+                <li data-lens="gaming">
+                  Served as <em>Incident Commander</em> across 4 major outages,
+                  averting $300K in revenue loss and authoring the live-ops
+                  post-mortem process adopted org-wide.
+                </li>
+                <li data-lens="consulting">
+                  Enabled <em>18 marketing experiments per quarter</em> by
+                  building a content management and A/B testing layer for a
+                  growth platform serving 1.5M daily users, cutting experiment
+                  setup from 1 day to 4 hours.
+                </li>
+                <li data-lens="gaming">
+                  Built the <em>A/B testing and content layer</em> powering
+                  growth experiments for 1.5M daily users, cutting setup time
+                  from a day to 4 hours and unlocking 18 tests per quarter.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Incident Command</span>
+                <span class="chip">A/B Testing</span>
+                <span class="chip">Growth Engineering</span>
+              </div>
             </div>
-            <ul class="space-y-2 text-white/60 list-disc list-inside">
-              <li>
-                Analyzed engagement data from 200,000+ daily users to identify
-                product opportunities, leading to 7% conversion increase.
-              </li>
-              <li>
-                Engineered website functionality to improve First Trip User
-                Experience, projected to generate $1M annualized revenue lift.
-              </li>
-            </ul>
-          </div>
+          </article>
 
           <!-- Fractal -->
-          <div class="gaming-card reveal">
-            <div
-              class="flex flex-col md:flex-row justify-between items-start mb-4"
-            >
-              <div>
-                <h3 class="text-2xl text-gaming-accent">
-                  Imagineer (Rotational Program)
-                </h3>
-                <p class="text-white/80">
-                  Fractal Analytics Pvt. Ltd. — Bangalore, India
-                </p>
+          <article class="role-card reveal-up" data-tags="consulting" id="role-fractal">
+            <div class="role-monogram" aria-hidden="true">FA</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title"><em>Imagineer</em> (Rotational Program)</h3>
+                  <p class="role-company">Fractal Analytics Pvt. Ltd. — Bangalore, India</p>
+                </div>
+                <p class="role-dates">Sep 2022 — Sep 2024</p>
               </div>
-              <p class="font-display text-sm text-white/40 mt-2 md:mt-0">
-                SEP 2022 — SEP 2024
+
+              <p class="role-lens" data-lens="consulting">
+                Leading delivery and building automation that cuts cost and unlocks throughput.
               </p>
+
+              <ul class="role-bullets">
+                <li>
+                  Delivered a <em>$600K engagement</em> for a Fortune 500 CPG
+                  client one month ahead of schedule, leading a 5-person
+                  cross-functional team across 3 locations to build a data
+                  access management platform.
+                </li>
+                <li>
+                  Eliminated <em>$150K in annual labor cost</em> by architecting
+                  an AI workflow orchestrator that raised ticket throughput 30%
+                  for 24 IT technicians, within existing governance constraints.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Project Leadership</span>
+                <span class="chip">Data Access Platforms</span>
+                <span class="chip">Workflow Automation</span>
+              </div>
             </div>
-            <ul class="space-y-2 text-white/60 list-disc list-inside">
-              <li>
-                Led a cross-functional team to build a Data Marketplace,
-                conducting effort estimation and sprint planning.
-              </li>
-              <li>
-                Designed and deployed interactive Dashboards (React/Django) for
-                executive leadership.
-              </li>
-            </ul>
-          </div>
+          </article>
 
           <!-- Mercedes -->
-          <div class="gaming-card reveal">
-            <div
-              class="flex flex-col md:flex-row justify-between items-start mb-4"
-            >
-              <div>
-                <h3 class="text-2xl text-gaming-accent">
-                  Occupant Safety Intern — Machine Learning
-                </h3>
-                <p class="text-white/80">
-                  Mercedes Benz R&D India — Bangalore, India
-                </p>
+          <article class="role-card reveal-up" data-tags="consulting" id="role-mercedes">
+            <div class="role-monogram" aria-hidden="true">MB</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">Occupant Safety Intern — <em>Machine Learning</em></h3>
+                  <p class="role-company">Mercedes-Benz R&amp;D India — Bangalore, India</p>
+                </div>
+                <p class="role-dates">Aug 2021 — Jul 2022</p>
               </div>
-              <p class="font-display text-sm text-white/40 mt-2 md:mt-0">
-                AUG 2021 — JUL 2022
+
+              <p class="role-lens" data-lens="consulting">
+                Applying ML to safety-critical predictions and supply chain visibility.
               </p>
+
+              <ul class="role-bullets">
+                <li>
+                  Engineered a predictive model achieving <em>95% accuracy</em>,
+                  cutting computation time by <em>30%</em>.
+                </li>
+                <li>
+                  Developed executive dashboards tracking <em>Supply Chain</em>
+                  and Supplier Compliance KPIs.
+                </li>
+              </ul>
+
+              <div class="role-tags">
+                <span class="chip">Machine Learning</span>
+                <span class="chip">Supply Chain Analytics</span>
+                <span class="chip">Executive Reporting</span>
+              </div>
             </div>
-            <ul class="space-y-2 text-white/60 list-disc list-inside">
-              <li>
-                Engineered a predictive model achieving 95% accuracy, resulting
-                in a 30% reduction in computation time.
-              </li>
-              <li>
-                Developed executive dashboards to track Supply Chain and
-                Supplier Compliance KPIs.
-              </li>
-            </ul>
-          </div>
+          </article>
         </div>
       </section>
 
       <!-- Education Section -->
-      <section id="education">
-        <h2 class="section-title">Education</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="gaming-card reveal">
-            <h3 class="text-xl text-gaming-accent mb-2">
-              University of Southern California
-            </h3>
-            <p class="text-white/80">
-              MBA (STEM) — Marshall School of Business
-            </p>
-            <p class="text-white/40 text-sm mt-2">MAY 2027</p>
-            <div class="mt-4 text-xs text-white/60 uppercase tracking-widest">
-              VP of Tech @ MGSA | AVP Marketing @ MIGA
+      <section id="education" class="timeline timeline--compact">
+        <h2 class="section-title reveal-up">Education</h2>
+        <div class="edu-grid">
+          <article class="role-card reveal-up" data-tags="consulting gaming" id="role-usc">
+            <div class="role-monogram" aria-hidden="true">M</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">MBA <em>(Marketing)</em></h3>
+                  <p class="role-company">University of Southern California — Marshall School of Business</p>
+                </div>
+                <p class="role-dates">May 2027</p>
+              </div>
+              <div class="role-tags">
+                <span class="chip">VP of Tech, MGSA</span>
+                <span class="chip">Exec VP, MIGA</span>
+              </div>
             </div>
-          </div>
-          <div class="gaming-card reveal">
-            <h3 class="text-xl text-gaming-accent mb-2">BITS Pilani</h3>
-            <p class="text-white/80">B.E. Mechanical Engineering (Honors)</p>
-            <p class="text-white/40 text-sm mt-2">AUG 2022</p>
-            <div class="mt-4 text-xs text-white/60 uppercase tracking-widest">
-              Head of Dept @ Sponsorship & Marketing
+          </article>
+
+          <article class="role-card reveal-up" data-tags="consulting gaming" id="role-bits">
+            <div class="role-monogram" aria-hidden="true">BP</div>
+            <div class="role-body">
+              <div class="role-head">
+                <div>
+                  <h3 class="role-title">B.E. Mechanical Engineering <em>(Honors)</em></h3>
+                  <p class="role-company">BITS Pilani — Goa, India</p>
+                </div>
+                <p class="role-dates">Aug 2022</p>
+              </div>
+              <div class="role-tags">
+                <span class="chip">Head of Dept, Sponsorship &amp; Marketing</span>
+              </div>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
       <!-- Skills Section -->
-      <section id="skills">
-        <h2 class="section-title">Skills & Tech</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="gaming-card reveal">
-            <h3 class="text-lg mb-4 text-gaming-accent">Analysis</h3>
-            <p class="text-white/60 text-sm">
-              Tableau, Looker, PowerBI, A/B Testing, Cohort Analysis, Funnel
-              Analysis
-            </p>
+      <section id="skills" class="skills-section">
+        <h2 class="section-title reveal-up">Skills &amp; Tools</h2>
+        <div class="skills-grid">
+          <div class="skills-card reveal-up" data-tags="consulting">
+            <h3>Analysis &amp; Strategy</h3>
+            <p>Tableau, Looker, Power BI, A/B testing, cohort &amp; funnel analysis, stakeholder storytelling.</p>
           </div>
-          <div class="gaming-card reveal">
-            <h3 class="text-lg mb-4 text-gaming-accent">Analytics</h3>
-            <p class="text-white/60 text-sm">
-              Python (Pandas, NumPy, Keras, Tensorflow, SciKit), SQL, M3QL,
-              MongoDB
-            </p>
+          <div class="skills-card reveal-up" data-tags="gaming">
+            <h3>Go-to-Market &amp; Community</h3>
+            <p>Audience segmentation, TAM analysis, community management, publisher relations, pitch decks.</p>
           </div>
-          <div class="gaming-card reveal">
-            <h3 class="text-lg mb-4 text-gaming-accent">Productivity</h3>
-            <p class="text-white/60 text-sm">
-              Notion, JIRA, Excel, PowerPoint, MS Word
-            </p>
+          <div class="skills-card reveal-up" data-tags="consulting gaming">
+            <h3>Engineering &amp; Data</h3>
+            <p>Python (Pandas, NumPy, Keras, TensorFlow, scikit-learn), SQL, M3QL, MongoDB, React/Django.</p>
+          </div>
+          <div class="skills-card reveal-up" data-tags="consulting gaming">
+            <h3>Productivity</h3>
+            <p>Notion, JIRA, Excel, PowerPoint, MS Word.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="py-20 border-t border-gaming-border text-center">
-      <p class="text-white/40 font-display text-xs uppercase tracking-[0.3em]">
-        Designed for the digital ecosystem // © 2026 Akash Harish Gudi
-      </p>
+    <footer class="site-footer">
+      <p><em>Designed and built</em> by Akash Harish Gudi — © 2026</p>
     </footer>
 
     <script type="module" src="/src/main.js"></script>
